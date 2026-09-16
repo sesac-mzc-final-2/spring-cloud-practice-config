@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    url: ${ORDER_DB_URL:jdbc:postgresql://postgres:5432/order_db}
+    username: ${ORDER_DB_USERNAME:order_app}
+    password: ${ORDER_DB_PASSWORD:order_app}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  rabbitmq:
+    host: ${RABBITMQ_HOST:rabbitmq}
+    username: ${RABBITMQ_USERNAME:guest}
+    password: ${RABBITMQ_PASSWORD:guest}
+    publisher-confirm-type: correlated
+resilience4j:
+  circuitbreaker:
+    instances:
+      user-service:
+        sliding-window-size: 10
+        minimum-number-of-calls: 5
+        failure-rate-threshold: 50
+        wait-duration-in-open-state: 10s
