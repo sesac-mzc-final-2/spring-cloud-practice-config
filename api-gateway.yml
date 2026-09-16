@@ -18,3 +18,7 @@ spring:
                 - Path=/api/notifications/instance
               filters:
                 - RewritePath=/api/notifications/instance,/instance
+            - id: notifications
+              uri: lb://notification-service
+              predicates:
+                - Path=/api/notifications
